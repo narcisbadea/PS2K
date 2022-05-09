@@ -25,10 +25,10 @@ def clock():
     r = requests.get(url, verify=False)
     page = json.loads(r.content)
     df = pd.DataFrame(page)
-    x = df.loc['mWh']
-    y = df.loc['time']
-    print(x)
-    print(y)
+    # x = df.loc['mWh']
+    # y = df.loc['time']
+    # print(x)
+    # print(y)
     ax = df.plot(x='hour', y='mWh', kind='line', legend=True, ax=ax, color='b', marker='o', fontsize=10)
     ax.set_title('mWh')
     ax.grid()
