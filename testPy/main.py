@@ -54,7 +54,7 @@ layout = [
         )],
     [sg.Button('EXIT')]
 ]
-_VARS['window'] = sg.Window('Title', layout, finalize=True, size=(800,700), element_justification='center', margins=(50, 0), background_color='#95b8d1')
+_VARS['window'] = sg.Window('Solar Panel Details', layout, finalize=True, size=(800,700), element_justification='center', margins=(50, 0), background_color='#95b8d1')
 
 def create_graph():
     px = 1/plt.rcParams['figure.dpi']
