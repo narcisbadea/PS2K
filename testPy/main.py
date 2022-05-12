@@ -1,11 +1,9 @@
 import json
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib import pyplot as plt
-import numpy as np
 import pandas as pd
 import requests
 import PySimpleGUI as sg
-import random
 
 _VARS = {
         'window': False,
@@ -27,10 +25,9 @@ def get_table():
 
     return df
 
-data = []   # Empty data
 df = get_table()
 headings = list(df)
-
+data = df.to_numpy().tolist()
 col_widths = list(map(lambda x:len(x)+2, headings)) # find the widths of columns in character.
 max_col_width = len('ParameterNameToLongToFitIntoAColumn')  # Set max midth of all columns of data to show
 
@@ -40,8 +37,7 @@ layout = [
     [sg.Table(
         values=data,                # Empty data must be with auto_size_columns=False
         headings=headings,
-        auto_size_columns=False,    # For empty data
-        #vertical_scroll_only=False,# Required if column widths changed and width of table not changed
+        auto_size_columns=True,
         hide_vertical_scroll=True,  # Not required if no more rows of data
         def_col_width=20,
         num_rows=1,
@@ -97,9 +93,8 @@ table.expand(expand_x=True, expand_y=True)          # Expand table in both direc
 for cid in headings:
     table_widget.column(cid, stretch=True)          # Set column stretchable when window resize
 
- 
 create_graph()
-
+update_graph()
 while True:
     event, values = _VARS['window'].read(timeout=1000)
     if event == sg.WIN_CLOSED or event == 'EXIT':
@@ -116,7 +111,7 @@ while True:
     # Redraw table to update new size of table if horizontal scrollbar not used, care if widget too large to fit your window or screen.
     table_widget.pack_forget()
     for cid, width in zip(headings, col_widths):    # Set width for each column
-        table_widget.column(cid, width=width)
+        table_widget.column(cid, width=width, stretch=True)
     table_widget.pack(side='left', fill='both', expand=True)    # Redraw table
     
     update_graph()
