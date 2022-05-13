@@ -15,14 +15,6 @@ int servoLR=90;
 int servoTD=90;
 
 long previousTime=0;
-long previousTimeV=0;
-
-Adafruit_INA219 ina219;
-float shuntvoltage = 0;
-float busvoltage = 0;
-float current_mA = 0;
-float power_mW = 0;
-float loadvoltage = 0;
 
 typedef struct waypoint{
   int LR;
@@ -33,7 +25,6 @@ typedef struct waypoint{
 
 
 void setup() {
-  ina219.begin();
   leftRight.attach(10);
   topDown.attach(9);
   leftRight.write(servoLR);
@@ -44,22 +35,7 @@ void setup() {
 }
 
 void loop() {
-
-  if (millis() - previousTimeV > 1000){
-    previousTimeV = millis();
-    shuntvoltage = ina219.getShuntVoltage_mV();
-    busvoltage = ina219.getBusVoltage_V();
-    current_mA = ina219.getCurrent_mA();
-    power_mW = ina219.getPower_mW();
-    Serial.println("shuntvoltage: " + (String)shuntvoltage);
-    Serial.println("busvoltage: " + (String)busvoltage);
-    Serial.println("current_mA: " + (String)current_mA);
-    loadvoltage = busvoltage + (shuntvoltage / 1000);
-    Serial.println("loadvoltage: " + (String)loadvoltage);
-    Serial.println("power_mW: " + (String)power_mW);
-    Serial.println();
-    
-  }
+  
   if(millis() - previousTime > 100){
     previousTime = millis();
     
