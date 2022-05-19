@@ -63,7 +63,7 @@ def create_graph():
 
     _VARS['graph'].grid()
     _VARS['graph'].set_title('Generated Power')
-    _VARS['graph'].set_ylabel('P[mW]')
+    _VARS['graph'].set_ylabel('P[W]')
     _VARS['graph'].set_xlabel('Hour')
 
     _VARS['fig_agg'] = draw_figure(_VARS['window']['-CANVAS-'].TKCanvas, _VARS['pltFig'])
@@ -79,7 +79,7 @@ def update_graph():
     _VARS['graph'].cla()
     _VARS['graph'].grid()
     _VARS['graph'].set_title('Generated Power')
-    _VARS['graph'].set_ylabel('P[mW]')
+    _VARS['graph'].set_ylabel('P[W]')
     _VARS['graph'].set_xlabel('Hour')
     _VARS['graph'].autoscale()
     _VARS['graph'].plot(x, y, '-kx')

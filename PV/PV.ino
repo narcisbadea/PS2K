@@ -16,6 +16,8 @@ int servoTD=90;
 
 long previousTime=0;
 
+char way[50];
+
 typedef struct waypoint{
   int LR;
   int TD;
@@ -35,6 +37,11 @@ void setup() {
 }
 
 void loop() {
+
+  if (Serial.available() > 0) {
+    Serial.readBytes(way,50); //Read the serial data and store in var
+    Serial.println(way); //Print data on Serial Monitor
+  }
   
   if(millis() - previousTime > 100){
     previousTime = millis();
